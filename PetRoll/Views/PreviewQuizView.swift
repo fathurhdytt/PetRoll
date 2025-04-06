@@ -3,6 +3,7 @@ import SwiftUI
 struct PreviewQuizView: View {
     @Binding var isLocated: Bool
     @State private var quiz: Quiz?
+    @ObservedObject var petViewModel: PetViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -79,20 +80,24 @@ struct PreviewQuizView: View {
                     .frame(maxWidth: .infinity)
                     .background(Color("White"))
                     .cornerRadius(12)
-                    
+
                     Spacer()
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
             }
             
-            // Tombol Mulai Kuis / Progress Loading
+            // Tombol Bawah
             VStack(spacing: 20) {
                 if let quiz = quiz {
                     NavigationLink(
-                        destination: QuizView(viewModel: QuizViewModel(quiz: quiz))
+                        destination: QuizView(
+                            viewModel: QuizViewModel(quiz: quiz),
+                            petViewModel: petViewModel,
+                            isLocated: isLocated
+                        )
                     ) {
-                        PrimaryButton(text: "Mulai")
+                        PrimaryButton(text: "Proceed")
                     }
                 } else {
                     ProgressView("Memuat kuis...")
@@ -115,5 +120,6 @@ struct PreviewQuizView: View {
 }
 
 #Preview {
-    PreviewQuizView(isLocated: .constant(true))
+    PreviewQuizView(isLocated: .constant(true), petViewModel: PetViewModel())
 }
+

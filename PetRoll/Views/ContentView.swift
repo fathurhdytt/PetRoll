@@ -1,11 +1,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var petViewModel = PetViewModel()
     @State private var isLocated: Bool = false
-    @State public var knowledge: Int = 59
-    @State public var hunger: Int = 59
-    @State public var health: Double = 0.5
-    @State private var isQuizActive: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -13,37 +10,53 @@ struct ContentView: View {
                 Image("BackgroundImg")
                     .resizable()
                     .ignoresSafeArea()
-                
+
                 VStack(spacing: 8) {
+                    // Lokasi + Tombol
                     HStack(alignment: .center, spacing: 16) {
                         PrimaryButton(image: "speaker.wave.2.fill", isFullWidth: false)
+
                         HStack {
                             Image(systemName: "mappin.and.ellipse.circle.fill")
                                 .resizable()
-                                .aspectRatio(contentMode: .fill)
                                 .frame(width: 24, height: 24)
                                 .padding(4)
                                 .foregroundColor(Color("Black"))
                                 .symbolEffect(.bounce)
+
                             Text("Saat ini kamu sedang tidak berada di halte 😔")
                                 .font(.footnote)
                                 .foregroundColor(Color("Black"))
                                 .multilineTextAlignment(.leading)
                         }
-                        .frame(maxWidth: .infinity, alignment: .center)
+                        .frame(maxWidth: .infinity)
                         .padding(8)
                         .background(Color("White"))
                         .cornerRadius(16)
-                        
+
                         HintButton(type: .withCoin ,hintCount: 3)
                     }
-                    
+
+                    // Progress Bar
                     HStack(spacing: 8) {
-                        GaugeGroup(text: "Knowledge", icon: "📖")
-                        GaugeGroup(text: "Hunger", icon: "🍽️")
+                        GaugeGroup(
+                            text: "Knowledge",
+                            icon: "📖",
+                            progress: Binding(get: {
+                                petViewModel.petStatus.knowledge
+                            }, set: { _ in })
+                        )
+
+                        GaugeGroup(
+                            text: "Hunger",
+                            icon: "🍽️",
+                            progress: Binding(get: {
+                                petViewModel.petStatus.hunger
+                            }, set: { _ in })
+                        )
                     }
-                    
-                    Gauge(value: health, in: 0...1) {
+
+                    Gauge(value: (petViewModel.petStatus.health), in: 0...1) {
                         Text("Health Bar ❤️")
                             .font(.callout)
                             .fontWeight(.bold)
@@ -56,24 +69,22 @@ struct ContentView: View {
                     Color.red
                         .frame(maxWidth: 320, maxHeight: 320)
                     Spacer()
-                    
+
+                    // Actions
                     HStack {
                         NavigationLink(
-                            destination: PreviewQuizView(isLocated: $isLocated),
+                            destination: PreviewQuizView(isLocated: $isLocated, petViewModel: petViewModel),
                             label: {
                                 PrimaryButton(text: "Kuis")
                             }
                         )
-
-                        Button(action: {
-                            if health < 1.0 {
-                                health = min(health + 0.05, 1.0)
-                            }
-                        }) {
+                        
+                        Button {
+                            petViewModel.feed()
+                        } label: {
                             PrimaryButton(text: "Makan")
                         }
                     }
-
                 }
                 .padding()
             }

@@ -5,6 +5,10 @@ struct QuizView: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject var viewModel: QuizViewModel
     
+    // Tambahkan 2 parameter berikut
+    var petViewModel: PetViewModel
+    var isLocated: Bool
+    
     var body: some View {
         ZStack {
             // Background
@@ -40,18 +44,17 @@ struct QuizView: View {
                 // Soal & Hint
                 VStack(spacing: 16) {
                     HStack {
-                        Text("Soal \(viewModel.currentQuestionIndex + 1) dari \(viewModel.quiz.questions.count)")
+                        Text("Soal \(viewModel.currentQuestionIndex + 1) dari \(viewModel.totalQuestions)")
                             .foregroundColor(.gray)
                         Spacer()
                         Text("Skip")
                             .fontWeight(.bold)
                     }
                     
-                    //Timer
-                    ProgressView(
-                        value: Double(viewModel.currentQuestionIndex + 1),
-                        total: Double(viewModel.quiz.questions.count)
-                    )
+                    // Timer
+                    ProgressView(value: viewModel.timeRemaining, total: viewModel.totalTimePerQuestion)
+                        .progressViewStyle(LinearProgressViewStyle(tint: .red))
+                        .scaleEffect(x: 1, y: 2, anchor: .center)
                     
                     Text(viewModel.currentQuestion.question)
                         .font(.system(size: 72, weight: .bold))
@@ -85,8 +88,8 @@ struct QuizView: View {
         .toolbar(.hidden, for: .navigationBar)
         .navigationDestination(isPresented: $viewModel.isFinished) {
             FinishQuizView(
-                score: viewModel.score,
-                total: viewModel.quiz.questions.count
+                petViewModel: petViewModel, score: viewModel.score,
+                isLocated: isLocated
             )
         }
     }
@@ -100,5 +103,8 @@ struct QuizView: View {
         ]
     )
     
-    return QuizView(viewModel: QuizViewModel(quiz: sampleQuiz))
+    let petViewModel = PetViewModel() // Ganti sesuai kebutuhanmu
+    let isLocated = true
+    
+    return QuizView(viewModel: QuizViewModel(quiz: sampleQuiz), petViewModel: petViewModel, isLocated: isLocated)
 }
