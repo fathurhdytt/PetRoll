@@ -22,6 +22,7 @@ class PetViewModel: ObservableObject {
 
         let knowledge = max(savedKnowledge - decayAmount, 0.0)
         let hunger = max(savedHunger - decayAmount, 0.0)
+        
 
         petStatus = PetStatus(knowledge: knowledge, hunger: hunger)
 

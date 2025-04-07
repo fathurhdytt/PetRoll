@@ -99,7 +99,8 @@ struct PreviewQuizView: View {
                     ) {
                         PrimaryButton(text: "Proceed")
                     }
-                } else {
+                }
+                else {
                     ProgressView("Memuat kuis...")
                         .onAppear {
                             loadQuiz()

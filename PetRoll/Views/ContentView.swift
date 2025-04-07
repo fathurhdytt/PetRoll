@@ -3,6 +3,7 @@ import SwiftUI
 struct ContentView: View {
     @StateObject private var petViewModel = PetViewModel()
     @State private var isLocated: Bool = false
+    @State private var position = CGPoint(x: 0, y: 0)
 
     var body: some View {
         NavigationStack {
@@ -66,8 +67,26 @@ struct ContentView: View {
                     .cornerRadius(16)
 
                     Spacer()
-                    Color.red
-                        .frame(maxWidth: 320, maxHeight: 320)
+
+                    // 🐶 Animasi Pet yang bisa digeser
+                    GeometryReader { geo in
+                        animationSequence()
+                            .frame(width: 320, height: 300)
+                            .offset(x: position.x, y: position.y)
+//                            .gesture(
+//                                DragGesture()
+//                                    .onChanged { value in
+//                                        self.position = CGPoint(
+//                                            x: value.translation.width,
+//                                            y: value.translation.height
+//                                        )
+//                                    }
+//                            )
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                    }
+                    .frame(height: .infinity) // Sesuaikan tinggi area animasi
+
+
                     Spacer()
 
                     // Actions
