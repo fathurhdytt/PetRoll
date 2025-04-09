@@ -4,10 +4,10 @@ struct QuizView: View {
     
     @Environment(\.presentationMode) var presentationMode
     @StateObject var viewModel: QuizViewModel
-    
-    // Tambahkan 2 parameter berikut
+
     var petViewModel: PetViewModel
     var isLocated: Bool
+    @Binding var path: NavigationPath
 
     var body: some View {
         ZStack {
@@ -20,7 +20,7 @@ struct QuizView: View {
                 
                 // Header Navigasi dan Hint
                 HStack(alignment: .top) {
-                    //back button
+                    // Back Button
                     Button(action: {
                         presentationMode.wrappedValue.dismiss()
                     }) {
@@ -40,11 +40,8 @@ struct QuizView: View {
                     Button(action: {
                         viewModel.useHintIfAvailable()
                     }) {
-                        HintButton(type: .iconOnly, hintCount: viewModel.hintCount)
+                        HintButton(type: .iconOnly, hintCount: petViewModel.petStatus.hint)
                     }
-
-
-
 
                 }
                 
@@ -53,7 +50,6 @@ struct QuizView: View {
                 
                 // Soal & Hint
                 VStack(spacing: 16) {
-                    
                     // Timer
                     ProgressView(value: viewModel.timeRemaining, total: viewModel.totalTimePerQuestion)
                         .progressViewStyle(LinearProgressViewStyle(tint: .red))
@@ -67,8 +63,6 @@ struct QuizView: View {
                         Text("Hint: \(viewModel.currentQuestion.hint)")
                             .foregroundColor(.gray)
                     }
-
-
                 }
                 .padding()
                 .background(Color("White"))
@@ -80,38 +74,55 @@ struct QuizView: View {
                     .background(Color("White"))
                     .cornerRadius(16)
                 
-                
                 // Tombol Jawab
                 Button(action: {
                     viewModel.submitAnswer()
                 }) {
                     PrimaryButton(text: "Jawab")
                 }
+
                 Spacer()
+                
+                NavigationLink(
+                    destination: FinishQuizView(
+                        petViewModel: petViewModel,
+                        score: viewModel.score,
+                        isLocated: isLocated,
+                        path: $path
+                    ),
+                    isActive: $viewModel.isFinished
+                ) {
+                    EmptyView()
+                }
+                .hidden()
+
             }
             .padding()
         }
         .navigationBarBackButtonHidden(true)
         .toolbar(.hidden, for: .navigationBar)
-        .navigationDestination(isPresented: $viewModel.isFinished) {
-            FinishQuizView(
-                petViewModel: petViewModel, score: viewModel.score,
-                isLocated: isLocated
-            )
-        }
+//        .navigationDestination(isPresented: $viewModel.isFinished) {
+//            FinishQuizView(
+//                petViewModel: petViewModel,
+//                score: viewModel.score,
+//                isLocated: isLocated,
+//                path: $path
+//            )
+//        }
+        .environment(\.dynamicTypeSize, .medium)
     }
 }
 
 #Preview {
-    let sampleQuiz = Quiz(
-        quizTitle: "Makanan Indonesia",
-        questions: [
-            Question(question: "🍚🟡", answer: "nasi kuning", hint: "N A _ I   K _ N _ _ G")
-        ]
-    )
-    
-    let petViewModel = PetViewModel() // Ganti sesuai kebutuhanmu
-    let isLocated = true
-    
-    return QuizView(viewModel: QuizViewModel(quiz: sampleQuiz), petViewModel: petViewModel, isLocated: isLocated)
+    NavigationStack {
+        let petViewModel = PetViewModel()
+        let sampleQuiz = Quiz(
+            quizTitle: "Makanan Indonesia",
+            questions: [
+                Question(question: "🍚🟡", answer: "nasi kuning", hint: "N A _ I   K _ N _ _ G")
+            ]
+        )
+        let viewModel = QuizViewModel(quiz: sampleQuiz, petViewModel: petViewModel)
+        QuizView(viewModel: viewModel, petViewModel: petViewModel, isLocated: true, path: .constant(NavigationPath()))
+    }
 }

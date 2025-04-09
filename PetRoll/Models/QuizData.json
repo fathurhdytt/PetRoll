@@ -2,12 +2,37 @@
   "quizTitle": "Makanan Indonesia",
   "questions": [
     {
+      "question": "🐌",
+      "answer": "tutut",
+      "hint": "T _ T _ T"
+    },
+    {
+      "question": "🥔🌀",
+      "answer": "kentang spiral",
+      "hint": "K _ _ T _ _ G   S _ I _ _ L"
+    },
+    {
+      "question": "🧱🏟️",
+      "answer": "batagor",
+      "hint": "_ A _ A _ O _"
+    },
+    {
+      "question": "🌽🍼🧀",
+      "answer": "jasuke",
+      "hint": "J _ _ _ K _"
+    },
+    {
+      "question": "🍌🍳",
+      "answer": "pisang goreng",
+      "hint": "P _ _ _ _ G   G _ R _ _ G"
+    },
+    {
       "question": "🍚🟡",
       "answer": "nasi kuning",
       "hint": "N A _ I   K _ N _ _ G"
     },
     {
-      "question": "🥩🌶️🥥",
+      "question": "🥩🥥🌶️",
       "answer": "rendang",
       "hint": "R _ N _ _ _ G"
     },
@@ -17,9 +42,9 @@
       "hint": "N A _ I   K _ _ _ _ G"
     },
     {
-      "question": "🥣🍜🥚",
-      "answer": "soto",
-      "hint": "S _ _ O"
+      "question": "🥭🥒🍍🍎",
+      "answer": "rujak",
+      "hint": "R _ _ _ K"
     },
     {
       "question": "🥜🥗",
@@ -27,12 +52,12 @@
       "hint": "G _ _ _ - G _ _ _"
     },
     {
-      "question": "🍢🔥",
+      "question": "🍢",
       "answer": "sate",
       "hint": "S _ _ E"
     },
     {
-      "question": "🍚🥩🍲",
+      "question": "🍲🥩🍚",
       "answer": "rawon",
       "hint": "R _ _ _ N"
     },
@@ -42,64 +67,64 @@
       "hint": "P _ _ _ _ _ _   J _ _ _ _ G"
     },
     {
-      "question": "🍜🥒🥩",
-      "answer": "bakso",
-      "hint": "B _ _ _ O"
+      "question": "🐉🕺🏻",
+      "answer": "nagasari",
+      "hint": "N _ G _ S _ R _"
     },
     {
-      "question": "🍰🌾🟤",
+      "question": "🍰❤️✌️",
       "answer": "kue lapis",
       "hint": "K _ _   L _ _ _ S"
     },
     {
-      "question": "🥬🍚🥩",
-      "answer": "pecel",
-      "hint": "P _ _ _ L"
+      "question": "🍞💔",
+      "answer": "roti sobek",
+      "hint": "R _ _ I   S _ B E _"
     },
     {
-      "question": "🍮🥥",
-      "answer": "klepon",
-      "hint": "K _ _ _ _ N"
+      "question": "🐓🔨",
+      "answer": "ayam geprek",
+      "hint": "A _ _ M   G _ P _ _ K"
     },
     {
-      "question": "🍗🍛🌶️",
+      "question": "🍗🌶️🍛",
       "answer": "ayam penyet",
       "hint": "A _ _ _   P _ _ _ _ T"
     },
     {
-      "question": "🥠🌰",
-      "answer": "lemper",
-      "hint": "L _ _ _ _ R"
+      "question": "🧠🧠",
+      "answer": "otak otak",
+      "hint": "O _ _ K   O _ _ K"
     },
     {
-      "question": "🍜🥚🐓",
+      "question": "🍜🐓",
       "answer": "mie ayam",
       "hint": "M _ _   A _ _ _"
     },
     {
-      "question": "🌶️🍚🥩",
+      "question": "🍚🏜️",
       "answer": "nasi padang",
       "hint": "N _ _ _   P _ _ _ _ G"
     },
     {
-      "question": "🍳🍞",
-      "answer": "martabak telur",
-      "hint": "M _ _ _ _ _ _   T _ _ _ _"
+      "question": "🥘🐐",
+      "answer": "sop kambing",
+      "hint": "S _ P   K _ M _ _ _ G"
     },
     {
-      "question": "🍚🍳🥫",
-      "answer": "nasi goreng",
-      "hint": "N _ _ _   G _ _ _ _ G"
+      "question": "🍞🔥",
+      "answer": "roti bakar",
+      "hint": "R _ _ _   B _ _ _ R"
     },
     {
-      "question": "🍚🥥🍌",
+      "question": "🍚🧎",
       "answer": "nasi uduk",
       "hint": "N _ _ _   U _ _ _"
     },
     {
-      "question": "🌾🍡🍯",
-      "answer": "serabi",
-      "hint": "S _ _ _ _ I"
+      "question": "🥣🍗",
+      "answer": "bubur ayam",
+      "hint": "B _ B U _  A _ A M"
     }
   ]
 }

@@ -50,13 +50,16 @@
 				"Preview Content/Preview Assets.xcassets",
 				ViewModels/animationSequence.swift,
 				ViewModels/LocationManager.swift,
+				"ViewModels/music-petroll.mp3",
 				ViewModels/PetViewModel.swift,
 				ViewModels/QuizDataLoader.swift,
 				ViewModels/QuizViewModel.swift,
+				ViewModels/SoundController.swift,
 				Views/ContentView.swift,
 				Views/FinishQuizView.swift,
 				Views/PreviewQuizView.swift,
 				Views/QuizView.swift,
+				Views/SplashScreenView.swift,
 			);
 			target = 28EB099C2D94021F001BEE5C /* PetRoll */;
 		};
@@ -80,13 +83,16 @@
 				"Preview Content/Preview Assets.xcassets",
 				ViewModels/animationSequence.swift,
 				ViewModels/LocationManager.swift,
+				"ViewModels/music-petroll.mp3",
 				ViewModels/PetViewModel.swift,
 				ViewModels/QuizDataLoader.swift,
 				ViewModels/QuizViewModel.swift,
+				ViewModels/SoundController.swift,
 				Views/ContentView.swift,
 				Views/FinishQuizView.swift,
 				Views/PreviewQuizView.swift,
 				Views/QuizView.swift,
+				Views/SplashScreenView.swift,
 			);
 			target = 28EB09AC2D940220001BEE5C /* PetRollTests */;
 		};

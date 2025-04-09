@@ -6,5 +6,7 @@ struct PetStatus {
     var health: Double {
         return (knowledge + hunger) / 2.0
     }
+    var hint: Int
     
 }
+

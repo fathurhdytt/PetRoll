@@ -4,7 +4,8 @@ struct PreviewQuizView: View {
     @Binding var isLocated: Bool
     @State private var quiz: Quiz?
     @ObservedObject var petViewModel: PetViewModel
-    
+    @Binding var path: NavigationPath
+
     var body: some View {
         VStack(spacing: 0) {
             ScrollView {
@@ -92,15 +93,16 @@ struct PreviewQuizView: View {
                 if let quiz = quiz {
                     NavigationLink(
                         destination: QuizView(
-                            viewModel: QuizViewModel(quiz: quiz),
+                            viewModel: QuizViewModel(quiz: quiz, petViewModel: petViewModel),
                             petViewModel: petViewModel,
-                            isLocated: isLocated
+                            isLocated: isLocated,
+                            path: $path
                         )
                     ) {
                         PrimaryButton(text: "Mulai")
                     }
-                }
-                else {
+
+                } else {
                     ProgressView("Memuat kuis...")
                         .onAppear {
                             loadQuiz()
@@ -109,7 +111,8 @@ struct PreviewQuizView: View {
             }
             .padding()
         }
-        .background(Color.background)
+        .background(Color("BackgroundColor"))
+        .environment(\.dynamicTypeSize, .medium)
     }
     
     func loadQuiz() {
@@ -121,5 +124,10 @@ struct PreviewQuizView: View {
 }
 
 #Preview {
-    PreviewQuizView(isLocated: .constant(true), petViewModel: PetViewModel())
+    NavigationStack {
+        PreviewQuizView(isLocated: .constant(true), petViewModel: PetViewModel(), path: .constant(NavigationPath()))
+    }
 }
+
+
+
