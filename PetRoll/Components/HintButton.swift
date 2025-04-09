@@ -7,7 +7,7 @@ enum HintType {
 
 struct HintButton: View {
     let type: HintType // Menggunakan enum agar lebih jelas
-    @State var hintCount: Int? // Jumlah hint yang tersedia
+    var hintCount: Int? // Jumlah hint yang tersedia
     
     var body: some View {
         switch type {
@@ -41,7 +41,7 @@ struct HintButton: View {
                     .resizable()
                     .frame(width: 64, height: 64)
                     .overlay(
-                        Text("12")
+                        Text("\(hintCount ?? 0)")
                             .font(.title)
                             .fontWeight(.bold)
                             .foregroundColor(Color("Black"))

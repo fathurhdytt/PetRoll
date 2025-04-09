@@ -8,7 +8,7 @@ struct QuizView: View {
     // Tambahkan 2 parameter berikut
     var petViewModel: PetViewModel
     var isLocated: Bool
-    
+
     var body: some View {
         ZStack {
             // Background
@@ -20,6 +20,7 @@ struct QuizView: View {
                 
                 // Header Navigasi dan Hint
                 HStack(alignment: .top) {
+                    //back button
                     Button(action: {
                         presentationMode.wrappedValue.dismiss()
                     }) {
@@ -35,21 +36,23 @@ struct QuizView: View {
                     
                     Spacer()
                     
-                    HintButton(type: .iconOnly, hintCount: 3)
+                    // Hint Button
+                    Button(action: {
+                        viewModel.useHintIfAvailable()
+                    }) {
+                        HintButton(type: .iconOnly, hintCount: viewModel.hintCount)
+                    }
+
+
+
+
                 }
                 
                 // Life Bar
-                LifeBar(lifeCount: 2)
+                LifeBar(lifeCount: viewModel.lives)
                 
                 // Soal & Hint
                 VStack(spacing: 16) {
-                    HStack {
-                        Text("Soal \(viewModel.currentQuestionIndex + 1) dari \(viewModel.totalQuestions)")
-                            .foregroundColor(.gray)
-                        Spacer()
-                        Text("Skip")
-                            .fontWeight(.bold)
-                    }
                     
                     // Timer
                     ProgressView(value: viewModel.timeRemaining, total: viewModel.totalTimePerQuestion)
@@ -60,8 +63,12 @@ struct QuizView: View {
                         .font(.system(size: 72, weight: .bold))
                         .frame(height: 160)
                     
-                    Text("Hint: \(viewModel.currentQuestion.hint)")
-                        .foregroundColor(.gray)
+                    if viewModel.isHintShown {
+                        Text("Hint: \(viewModel.currentQuestion.hint)")
+                            .foregroundColor(.gray)
+                    }
+
+
                 }
                 .padding()
                 .background(Color("White"))
@@ -73,7 +80,6 @@ struct QuizView: View {
                     .background(Color("White"))
                     .cornerRadius(16)
                 
-                Spacer()
                 
                 // Tombol Jawab
                 Button(action: {
@@ -81,6 +87,7 @@ struct QuizView: View {
                 }) {
                     PrimaryButton(text: "Jawab")
                 }
+                Spacer()
             }
             .padding()
         }

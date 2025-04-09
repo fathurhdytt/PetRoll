@@ -2,9 +2,17 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var petViewModel = PetViewModel()
-    @State private var isLocated: Bool = false
-    @State private var position = CGPoint(x: 0, y: 0)
+   // @State private var isLocated: Bool = false
+    
+    
+    //Drag Animasi
+    @State private var position = CGSize.zero
+    @GestureState private var dragOffset = CGSize.zero
+    
+    //LocationManager
+    @StateObject private var locationManager = LocationManager()
 
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -17,31 +25,15 @@ struct ContentView: View {
                     HStack(alignment: .center, spacing: 16) {
                         PrimaryButton(image: "speaker.wave.2.fill", isFullWidth: false)
 
-                        HStack {
-                            Image(systemName: "mappin.and.ellipse.circle.fill")
-                                .resizable()
-                                .frame(width: 24, height: 24)
-                                .padding(4)
-                                .foregroundColor(Color("Black"))
-                                .symbolEffect(.bounce)
+                        OutsideLocPanel(isLocationActive: locationManager.isAtBusStop)
 
-                            Text("Saat ini kamu sedang tidak berada di halte 😔")
-                                .font(.footnote)
-                                .foregroundColor(Color("Black"))
-                                .multilineTextAlignment(.leading)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(8)
-                        .background(Color("White"))
-                        .cornerRadius(16)
-
-                        HintButton(type: .withCoin ,hintCount: 3)
+                        HintButton(type: .iconOnly)
                     }
 
                     // Progress Bar
                     HStack(spacing: 8) {
                         GaugeGroup(
-                            text: "Knowledge",
+                            text: "Ilmu",
                             icon: "📖",
                             progress: Binding(get: {
                                 petViewModel.petStatus.knowledge
@@ -49,7 +41,7 @@ struct ContentView: View {
                         )
 
                         GaugeGroup(
-                            text: "Hunger",
+                            text: "Lapar",
                             icon: "🍽️",
                             progress: Binding(get: {
                                 petViewModel.petStatus.hunger
@@ -70,36 +62,41 @@ struct ContentView: View {
 
                     // 🐶 Animasi Pet yang bisa digeser
                     GeometryReader { geo in
-                        animationSequence()
+                        let mood = getMood(from: petViewModel.petStatus.health)
+                        
+                        AnimationSequence(mood: mood)
                             .frame(width: 320, height: 300)
-                            .offset(x: position.x, y: position.y)
-//                            .gesture(
-//                                DragGesture()
-//                                    .onChanged { value in
-//                                        self.position = CGPoint(
-//                                            x: value.translation.width,
-//                                            y: value.translation.height
-//                                        )
-//                                    }
-//                            )
+                            .offset(x: position.width + dragOffset.width, y: position.height + dragOffset.height)
+                            .gesture(
+                                DragGesture()
+                                    .updating($dragOffset) { value, state, _ in
+                                        state = value.translation
+                                    }
+                                    .onEnded { _ in
+                                        // Kembali ke posisi awal
+                                        withAnimation(.spring()) {
+                                            position = .zero
+                                        }
+                                    }
+                            )
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                     }
-                    .frame(height: .infinity) // Sesuaikan tinggi area animasi
-
+                    .frame(height: 300)
 
                     Spacer()
 
                     // Actions
                     HStack {
                         NavigationLink(
-                            destination: PreviewQuizView(isLocated: $isLocated, petViewModel: petViewModel),
+                            destination: PreviewQuizView(isLocated: $locationManager.isAtBusStop, petViewModel: petViewModel),
                             label: {
                                 PrimaryButton(text: "Kuis")
                             }
                         )
-                        
+
                         Button {
-                            petViewModel.feed()
+                            petViewModel.feed(isLocated: locationManager.isAtBusStop)
+
                         } label: {
                             PrimaryButton(text: "Makan")
                         }
@@ -110,7 +107,31 @@ struct ContentView: View {
             .navigationBarBackButtonHidden(true)
             .toolbar(.hidden, for: .navigationBar)
         }
+        
+//        .onAppear {
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//                print("📍 onAppear: Checking Location (with delay)")
+//                print("🔄 isAtBusStop: \(locationManager.isAtBusStop)")
+//
+//                if let userLocation = locationManager.userLocation {
+//                    print("📍 Lokasi User: \(userLocation.coordinate.latitude), \(userLocation.coordinate.longitude)")
+//                } else {
+//                    print("⚠️ User location belum tersedia.")
+//                }
+//
+//                print("🚏 Halte: \(locationManager.busStopCoordinate.coordinate.latitude), \(locationManager.busStopCoordinate.coordinate.longitude)")
+//            }
+//        }
+//        .onReceive(locationManager.$isAtBusStop) { newValue in
+//            isLocated = newValue
+//            print("🔄 isLocated updated: \(isLocated)")
+//        }
+
+
+
+
     }
+        
 }
 
 #Preview {

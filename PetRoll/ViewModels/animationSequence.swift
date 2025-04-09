@@ -1,100 +1,60 @@
-//import SwiftUI
-//import UniformTypeIdentifiers
-//
-//struct ContentView: View {
-//    
-//    @State private var position = CGPoint(x: 200, y: 700)
-//    
-//    var body: some View {
-//            ZStack{
-//                animationSequence().offset(x: 0, y: 10.0)
-//                .position(x: self.position.x, y: self.position.y)
-//                .gesture(
-//                    DragGesture()
-//                        .onChanged { value in
-//                            self.position.x = value.location.x
-//                            self.position.y = value.location.y}
-//                )
-//                
-//            
-//        }
-//       
-//    }
-//}
-//
-//
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView()
-//    }
-//}
-//
-////create array for images
-//
-//var images : [UIImage]! = [
-//    UIImage(named: "happy1")!,
-//    UIImage(named: "happy2")!,
-//    UIImage(named: "happy3")!,
-//    UIImage(named: "happy2")!,
-//    UIImage(named: "happy1")!,
-//]
-//
-////var images : [UIImage]! = [
-////    UIImage(named: "normal1")!,
-////    UIImage(named: "normal2")!,
-////]
-//
-////var images : [UIImage]! = [
-////    UIImage(named: "sad1")!,
-////    UIImage(named: "sad2")!,
-////    UIImage(named: "sad3")!,
-////    UIImage(named: "sad2")!,
-////    UIImage(named: "sad1")!,
-////]
-//
-//let animatedImages = UIImage.animatedImage(with: images, duration: 1)
-//
-//struct animationSequence: UIViewRepresentable {
-//    
-//    func makeUIView(context: Context) -> UIView {
-//        let seqAnimView = UIViewType(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
-//        let seqImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 400, height: 400))
-//        seqImage.clipsToBounds = true
-//        seqImage.layer.cornerRadius = 20
-//        seqImage.autoresizesSubviews = true
-//        seqImage.contentMode = UIView.ContentMode.scaleAspectFill
-//        seqImage.image = animatedImages
-//        seqAnimView.addSubview(seqImage)
-//        return seqAnimView
-//        
-//    }
-//    
-//    
-//    func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<animationSequence>) {
-//        
-//    }
-//}
-
 import SwiftUI
 
-// MARK: - Image Animation Setup
-let images: [UIImage] = [
-    UIImage(named: "sad1")!,
-    UIImage(named: "sad2")!,
-    UIImage(named: "sad3")!,
-    UIImage(named: "sad2")!,
-    UIImage(named: "sad1")!
-]
+// MARK: - Pet Mood Enum
+enum PetMood {
+    case sad
+    case normal
+    case happy
+}
 
-let animatedImages = UIImage.animatedImage(with: images, duration: 1)
+// MARK: - Get Mood From Health
+func getMood(from health: Double) -> PetMood {
+    switch health {
+    case 0...0.3:
+        return .sad
+    case 0.31...0.7:
+        return .normal
+    default:
+        return .happy
+    }
+}
 
+// MARK: - Animation Image Mapping
+func getImages(for mood: PetMood) -> [UIImage] {
+    switch mood {
+    case .sad:
+        return [
+            UIImage(named: "sad1")!,
+            UIImage(named: "sad2")!,
+            UIImage(named: "sad3")!,
+            UIImage(named: "sad2")!,
+            UIImage(named: "sad1")!
+        ]
+    case .normal:
+        return [
+            UIImage(named: "normal1")!,
+            UIImage(named: "normal2")!,
+            UIImage(named: "normal1")!
+        ]
+    case .happy:
+        return [
+            UIImage(named: "happy1")!,
+            UIImage(named: "happy2")!,
+            UIImage(named: "happy3")!,
+            UIImage(named: "happy2")!,
+            UIImage(named: "happy1")!
+        ]
+    }
+}
 
 // MARK: - UIViewRepresentable Wrapper
-struct animationSequence: UIViewRepresentable {
+struct AnimationSequence: UIViewRepresentable {
+    let mood: PetMood
+
     func makeUIView(context: Context) -> UIView {
         let container = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 300))
         let imageView = UIImageView(frame: container.bounds)
-        imageView.image = animatedImages
+        imageView.image = UIImage.animatedImage(with: getImages(for: mood), duration: 1)
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 20
         imageView.contentMode = .scaleAspectFill
@@ -103,7 +63,7 @@ struct animationSequence: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: UIView, context: Context) {
-        // No need to update anything for now
+        guard let imageView = uiView.subviews.first as? UIImageView else { return }
+        imageView.image = UIImage.animatedImage(with: getImages(for: mood), duration: 1)
     }
 }
-

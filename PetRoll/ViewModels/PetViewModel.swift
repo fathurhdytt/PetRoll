@@ -7,9 +7,9 @@ class PetViewModel: ObservableObject {
     private var timer: Timer?
     private let decayRate = 0.01 / 60.0 // 1% per menit
 
-    private let knowledgeKey = "knowledge"
-    private let hungerKey = "hunger"
-    private let lastActiveKey = "lastActive"
+    private let knowledgeKey = "knowledgePet"
+    private let hungerKey = "hungerPet"
+    private let lastActiveKey = "lastActivePet"
 
     init() {
         let savedKnowledge = UserDefaults.standard.double(forKey: knowledgeKey)
@@ -41,19 +41,21 @@ class PetViewModel: ObservableObject {
         saveStatus()
     }
 
-    func feed() {
-        petStatus.hunger = min(petStatus.hunger + 0.05, 1.0)
+    func feed(isLocated: Bool) {
+        let increaseAmount = isLocated ? 0.10 : 0.05
+        petStatus.hunger = min(petStatus.hunger + increaseAmount, 1.0)
         saveStatus()
     }
 
+
     func learn(score: Int, isLocated: Bool) {
-        let baseGain = 0.05
-        let extraIfLocated = isLocated ? 0.05 : 0.0
-        let totalGain = baseGain + extraIfLocated
-        let finalGain = totalGain * Double(score)
-        petStatus.knowledge = min(1.0, petStatus.knowledge + finalGain)
+        let maxScore: Double = 100
+        let maxGain = isLocated ? 0.25 : 0.20
+        let finalScore = (Double(score) * maxGain) / maxScore
+        petStatus.knowledge = min(1.0, petStatus.knowledge + finalScore)
         saveStatus()
     }
+
 
 
 

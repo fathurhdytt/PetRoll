@@ -29,12 +29,70 @@
 		28EB09B72D940220001BEE5C /* PetRollUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PetRollUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		28EB099F2D94021F001BEE5C /* PetRoll */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = PetRoll;
-			sourceTree = "<group>";
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		28F20BC52DA6174A0063E7FF /* Exceptions for "PetRoll" folder in "PetRoll" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Assets.xcassets,
+				Components/GaugeGroup.swift,
+				Components/HintButton.swift,
+				Components/HorizontalList.swift,
+				Components/InsideLocPanel.swift,
+				Components/LifeBar.swift,
+				Components/OutsideLocPanel.swift,
+				Components/PrimaryButton.swift,
+				Models/PetStatus.swift,
+				Models/Quiz.swift,
+				Models/QuizData.json,
+				Navigation/AppRoute.swift,
+				Navigation/NavigationModel.swift,
+				PetRollApp.swift,
+				"Preview Content/Preview Assets.xcassets",
+				ViewModels/animationSequence.swift,
+				ViewModels/LocationManager.swift,
+				ViewModels/PetViewModel.swift,
+				ViewModels/QuizDataLoader.swift,
+				ViewModels/QuizViewModel.swift,
+				Views/ContentView.swift,
+				Views/FinishQuizView.swift,
+				Views/PreviewQuizView.swift,
+				Views/QuizView.swift,
+			);
+			target = 28EB099C2D94021F001BEE5C /* PetRoll */;
 		};
+		28F20BC62DA6174A0063E7FF /* Exceptions for "PetRoll" folder in "PetRollTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Assets.xcassets,
+				Components/GaugeGroup.swift,
+				Components/HintButton.swift,
+				Components/HorizontalList.swift,
+				Components/InsideLocPanel.swift,
+				Components/LifeBar.swift,
+				Components/OutsideLocPanel.swift,
+				Components/PrimaryButton.swift,
+				Models/PetStatus.swift,
+				Models/Quiz.swift,
+				Models/QuizData.json,
+				Navigation/AppRoute.swift,
+				Navigation/NavigationModel.swift,
+				PetRollApp.swift,
+				"Preview Content/Preview Assets.xcassets",
+				ViewModels/animationSequence.swift,
+				ViewModels/LocationManager.swift,
+				ViewModels/PetViewModel.swift,
+				ViewModels/QuizDataLoader.swift,
+				ViewModels/QuizViewModel.swift,
+				Views/ContentView.swift,
+				Views/FinishQuizView.swift,
+				Views/PreviewQuizView.swift,
+				Views/QuizView.swift,
+			);
+			target = 28EB09AC2D940220001BEE5C /* PetRollTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
 		28EB09B02D940220001BEE5C /* PetRollTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = PetRollTests;
@@ -43,6 +101,15 @@
 		28EB09BA2D940220001BEE5C /* PetRollUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = PetRollUITests;
+			sourceTree = "<group>";
+		};
+		28F20BAC2DA6174A0063E7FF /* PetRoll */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				28F20BC52DA6174A0063E7FF /* Exceptions for "PetRoll" folder in "PetRoll" target */,
+				28F20BC62DA6174A0063E7FF /* Exceptions for "PetRoll" folder in "PetRollTests" target */,
+			);
+			path = PetRoll;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -75,7 +142,7 @@
 		28EB09942D94021F001BEE5C = {
 			isa = PBXGroup;
 			children = (
-				28EB099F2D94021F001BEE5C /* PetRoll */,
+				28F20BAC2DA6174A0063E7FF /* PetRoll */,
 				28EB09B02D940220001BEE5C /* PetRollTests */,
 				28EB09BA2D940220001BEE5C /* PetRollUITests */,
 				28EB099E2D94021F001BEE5C /* Products */,
@@ -107,9 +174,6 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				28EB099F2D94021F001BEE5C /* PetRoll */,
-			);
 			name = PetRoll;
 			packageProductDependencies = (
 			);
@@ -132,6 +196,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				28EB09B02D940220001BEE5C /* PetRollTests */,
+				28F20BAC2DA6174A0063E7FF /* PetRoll */,
 			);
 			name = PetRollTests;
 			packageProductDependencies = (
@@ -399,6 +464,7 @@
 				DEVELOPMENT_TEAM = C73BTKKUMJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PetRoll/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -409,7 +475,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fathurhidayat.PetRoll;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fathurhidayat.PetRoll12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -428,6 +494,7 @@
 				DEVELOPMENT_TEAM = C73BTKKUMJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PetRoll/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -438,7 +505,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fathurhidayat.PetRoll;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fathurhidayat.PetRoll12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

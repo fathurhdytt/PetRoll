@@ -48,7 +48,7 @@ struct PreviewQuizView: View {
                                 .cornerRadius(120)
                                 .symbolEffect(.bounce)
                             
-                            Text("Kamu bisa mendapatkan poin tambahan jika mengerjakannya di halte BSD Link loh😉")
+                            Text("Kerjakan kuis di halte BSD Link untuk bonus +20% poin knowledge! Kalau di luar halte, tetap dapat +10% 😉")
                                 .font(.body)
                                 .foregroundColor(Color("Black"))
                                 .multilineTextAlignment(.center)
@@ -97,7 +97,7 @@ struct PreviewQuizView: View {
                             isLocated: isLocated
                         )
                     ) {
-                        PrimaryButton(text: "Proceed")
+                        PrimaryButton(text: "Mulai")
                     }
                 }
                 else {
@@ -123,4 +123,3 @@ struct PreviewQuizView: View {
 #Preview {
     PreviewQuizView(isLocated: .constant(true), petViewModel: PetViewModel())
 }
-

@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct FinishQuizView: View {
-    @Environment(\.presentationMode) var presentationMode
     @Environment(\.dismiss) private var dismiss
     @State private var goToRoot = false
     @State private var goToPreview = false
@@ -10,12 +9,15 @@ struct FinishQuizView: View {
     let score: Int
     let isLocated: Bool
     
+    @State private var addedKnowledge: Double = 0.0
+
+    
     var body: some View {
         NavigationStack {
             VStack(spacing: 16) {
                 HStack {
                     Spacer()
-                    HintButton(type: .iconOnly, hintCount: 2)
+                    HintButton(type: .iconOnly)
                 }
                 
                 LifeBar(lifeCount: 3)
@@ -41,7 +43,7 @@ struct FinishQuizView: View {
                     Divider()
                     
                     
-                    Text("+\(Int((isLocated ? 10 : 5)))% Poin Knowledge")
+                    Text("+\(Int(addedKnowledge * 100))% Poin Knowledge")
                         .font(.body)
                         .foregroundColor(Color("Black"))
                         .frame(maxWidth: .infinity)
@@ -51,15 +53,18 @@ struct FinishQuizView: View {
                                 .fill(Color("White"))
                                 .stroke(Color("PrimaryColor"), lineWidth: 2)
                         }
-                    
-                    Text("+10% poin knowledge (jika kamu berada di halte BSD Link)")
-                        .font(.body)
-                        .foregroundColor(Color("Black"))
-                        .multilineTextAlignment(.center)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color("PrimaryColor").opacity(0.2))
-                        .cornerRadius(16)
+
+                    if isLocated {
+                        Text("🎉 Bonus! Karena kamu berada di halte BSD Link.")
+                            .font(.body)
+                            .foregroundColor(Color("Black"))
+                            .multilineTextAlignment(.center)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color("PrimaryColor").opacity(0.2))
+                            .cornerRadius(16)
+                    }
+
                 }
                 .padding()
                 .background(Color("White"))
@@ -94,12 +99,17 @@ struct FinishQuizView: View {
                 ContentView()
             }
             .onAppear {
+                let maxScore: Double = 100
+                let maxGain = isLocated ? 0.25 : 0.20
+                let gain = (Double(score) * maxGain) / maxScore
+                addedKnowledge = gain
                 petViewModel.learn(score: score, isLocated: isLocated)
             }
+
         }
     }
 }
 
 #Preview {
-    FinishQuizView(petViewModel: PetViewModel(), score: 7, isLocated: true)
+    FinishQuizView(petViewModel: PetViewModel(), score: 7, isLocated: false)
 }
