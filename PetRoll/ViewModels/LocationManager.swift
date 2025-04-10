@@ -8,11 +8,11 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var isAtBusStop: Bool = false
     @Published var userLocation: CLLocation?
 
-    // rumah gweh
-    let busStopCoordinate = CLLocation(latitude: -6.3593174070345535, longitude: 106.74084985162276)
+//    // rumah gweh
+//    let busStopCoordinate = CLLocation(latitude: -6.3593174070345535, longitude: 106.74084985162276)
     
-//    // Koordinat Halte The Breeze tapi ini lagi pake koordinat ADA
-//    let busStopCoordinate = CLLocation(latitude: -6.302148, longitude: 106.652569)
+    // Koordinat Halte The Breeze
+    let busStopCoordinate = CLLocation(latitude: -6.301682861527709, longitude: 106.65324619049825)
 
 
     override init() {
@@ -30,7 +30,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     //interval waktu
     private func startLocationCheckTimer() {
-        locationCheckTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+        locationCheckTimer = Timer.scheduledTimer(withTimeInterval: 0, repeats: true) { [weak self] _ in
             self?.locationManager.requestLocation()
         }
     }
@@ -44,14 +44,14 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         self.userLocation = userLoc
 
         let distance = userLoc.distance(from: busStopCoordinate)
-        self.isAtBusStop = distance <= 120
+        self.isAtBusStop = distance <= 100
 
-//        print("📍 Lokasi User: \(userLoc.coordinate.latitude), \(userLoc.coordinate.longitude)")
-//        print("🚏 Lokasi Halte: \(busStopCoordinate.coordinate.latitude), \(busStopCoordinate.coordinate.longitude)")
-//        print("📏 Jarak ke Halte: \(String(format: "%.2f", distance)) meter")
-//        print("✅ isAtBusStop: \(isAtBusStop)")
+        print("📍 Lokasi User: \(userLoc.coordinate.latitude), \(userLoc.coordinate.longitude)")
+        print("🚏 Lokasi Halte: \(busStopCoordinate.coordinate.latitude), \(busStopCoordinate.coordinate.longitude)")
+        print("📏 Jarak ke Halte: \(String(format: "%.2f", distance)) meter")
+        print("✅ isAtBusStop: \(isAtBusStop)")
     }
-
+    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("❌ Gagal mendapatkan lokasi: \(error.localizedDescription)")
     }
