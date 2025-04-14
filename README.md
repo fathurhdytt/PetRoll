@@ -37,7 +37,4 @@
 
 **Solution:** PetRoll provides light interaction (feeding, quizzes) to make the waiting moment more fun, especially enhanced when users are detected to be near the BSD Link stop (The Breeze).
 
----
-
-## 🧩 Architecture
 
