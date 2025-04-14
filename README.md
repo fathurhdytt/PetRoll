@@ -1,6 +1,6 @@
 # 🐾 PetRoll🛞
 
-**PetRoll** is a simple virtual pet game built with SwiftUI, designed to make the experience of waiting for the BSD Link more fun and engaging. Feed your pet, guess Indonesian food through emoji quizzes, and unlock special content when you’re at the BSD Link stop!
+**PetRoll** is a simple virtual pet game built with SwiftUI, designed to make the experience of waiting for the BSD Link more fun. Feed your pet, guess Indonesian food through emoji quizzes, and unlock special content when you’re at the BSD Link stop!
 
 ---
 
@@ -27,7 +27,7 @@
 |------|-------------|
 | **Swift** | Core programming language |
 | **SwiftUI** | Declarative UI framework for building the interface |
-| **CoreLocation** | Detect user’s location and provide dynamic content when near BSD Link |
+| **CoreLocation** | Detect user’s location and provide dynamic content when near BSD Link stop |
 
 ---
 
